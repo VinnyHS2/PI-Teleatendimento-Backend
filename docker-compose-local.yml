@@ -1,0 +1,38 @@
+version: '3'
+
+networks:
+  teleatendimento_network:
+    driver: bridge    
+
+services:
+
+
+###################################################
+
+ teleatendimento_pgadmin:
+    restart: always
+    image: dpage/pgadmin4
+    container_name: teleatendimento-pgadmin
+    networks:
+      - teleatendimento_network
+    ports:
+      - 15432:80
+    environment:
+      - PGADMIN_DEFAULT_PASSWORD=p0stgr3s
+      - PGADMIN_DEFAULT_EMAIL=postgres@postgres.com
+    depends_on:
+      - teleatendimento_postgres_local
+
+
+ teleatendimento_postgres_local:
+    restart: always
+    container_name: postgres-teleatendimento-local
+    image: postgres:12.2-alpine
+    networks:
+      - teleatendimento_network
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=teleatendimento
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
