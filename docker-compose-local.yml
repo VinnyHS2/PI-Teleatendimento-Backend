@@ -31,7 +31,7 @@ services:
     networks:
       - teleatendimento_network
     ports:
-      - 5432:5432
+      - 5435:5432
     environment:
       - POSTGRES_DB=teleatendimento
       - POSTGRES_USER=postgres
