@@ -15,6 +15,7 @@ Um software para atendimento remoto de clientes
 	- Java jdk
 	- Springboot
 	- Postgres
+	- Docker
 	- Maven
 	- Lombok
 	
@@ -22,6 +23,10 @@ Um software para atendimento remoto de clientes
 Para rodar o servidor, deve-se primeiro instalar todas as dependências.
 	
   - mvn compile
+
+Para iniciar o container do banco de dados no docker é necessario executar o comando:
+
+  - docker-compose up
   
 Após isso, basta inicializar o servidor com o comando:
 	
