@@ -17,7 +17,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
 	@Override
 	public void registerStompEndpoints(StompEndpointRegistry registry) {
-		registry.addEndpoint("/pi-websocket").setAllowedOrigins("*").withSockJS();
+		registry.addEndpoint("/pi-websocket").setAllowedOriginPatterns("*").withSockJS();
 	}
 
 	@Override
@@ -25,13 +25,4 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 		config.setApplicationDestinationPrefixes("/pi-teleatendimento");
 	}
 
-	@Override
-	public void configureClientInboundChannel(ChannelRegistration registration) {
-		registration.interceptors(new ChannelInterceptorAdapter() {
-			@Override
-			public Message<?> preSend(Message<?> message, MessageChannel channel) {
-				return message;
-			}
-		});
-	}
 }
