@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pi.teleatendimento.dto.InserirFilaDto;
-import com.pi.teleatendimento.dto.WebSocketChannelDto;
 
 
 @Validated
