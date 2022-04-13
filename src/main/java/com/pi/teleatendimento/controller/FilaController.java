@@ -2,6 +2,7 @@ package com.pi.teleatendimento.controller;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pi.teleatendimento.dto.InserirFilaDto;
+import com.pi.teleatendimento.dto.PosicaoFilaDto;
+import com.pi.teleatendimento.service.FilaService;
 
 
 @Validated
@@ -18,9 +21,12 @@ import com.pi.teleatendimento.dto.InserirFilaDto;
 @RequestMapping(path = { "/fila" }, produces = MediaType.APPLICATION_JSON_VALUE)
 public class FilaController {
 	
+	@Autowired
+	FilaService filaService;
+	
 	@PostMapping("/inserir")
-	public ResponseEntity<?> inserirFila(@Valid @RequestBody InserirFilaDto dto) throws Exception {
-		return ResponseEntity.ok().build();
+	public ResponseEntity<PosicaoFilaDto> inserirFila(@Valid @RequestBody InserirFilaDto dto) throws Exception {
+		return ResponseEntity.ok(filaService.inserirFila(dto));
 	}
 	
 }

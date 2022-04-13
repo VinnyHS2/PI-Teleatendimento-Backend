@@ -1,7 +1,5 @@
 package com.pi.teleatendimento.dto;
 
-import javax.validation.constraints.NotEmpty;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
@@ -17,10 +15,9 @@ import lombok.ToString;
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
-public class InserirFilaDto {
+public class PosicaoFilaDto {
 	
-	@NotEmpty(message = "O campo RA não deve estar vazio")
-	@JsonProperty("ra")
-	private String ra;
+	@JsonProperty("posicao")
+	private Integer posicao;
 
 }
