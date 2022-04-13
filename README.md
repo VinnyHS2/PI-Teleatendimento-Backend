@@ -16,6 +16,7 @@ Um software para atendimento remoto de clientes
 	- Springboot
 	- Postgres
 	- Docker
+	- Docker Compose
 	- Maven
 	- Lombok
 	
