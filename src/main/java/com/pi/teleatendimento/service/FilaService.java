@@ -3,21 +3,23 @@ package com.pi.teleatendimento.service;
 import java.util.ArrayList;
 
 import org.apache.commons.lang3.math.NumberUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pi.teleatendimento.dto.ChamarProximoDto;
 import com.pi.teleatendimento.dto.InserirFilaDto;
 import com.pi.teleatendimento.dto.PosicaoFilaDto;
+import com.pi.teleatendimento.dto.WebSocketChannelDto;
 import com.pi.teleatendimento.exceptions.BadRequestException;
+import com.pi.teleatendimento.exceptions.NotFoundException;
 
 import lombok.NonNull;
 
 @Service
 public class FilaService {
-	
-	
-//	@Autowired
-//	UtilitiesService utilitiesService;
-	
+	@Autowired
+	WebSocketService socketService;
+		
 	private ArrayList<String> fila = new ArrayList<String>();
 	
 	public PosicaoFilaDto inserirFila(@NonNull InserirFilaDto dto) throws Exception {
@@ -35,8 +37,28 @@ public class FilaService {
 		PosicaoFilaDto response = PosicaoFilaDto.builder().posicao(index + 1).build();
 
 		return response;
+	}
+	
+	public void ChamarProximo(@NonNull ChamarProximoDto dto) throws Exception {
 		
+		if(fila.isEmpty()) {
+			throw new NotFoundException("A fila está vazia");
+		}
+		
+		String ra = fila.get(0);
+		fila.remove(ra);
+		
+		WebSocketChannelDto response = WebSocketChannelDto.builder()
+				.tipo("iniciar")
+				.topico(ra)
+				.payload(dto.getIdSala())
+				.build();
+		
+		socketService.notifyMessageChannel(response);
 		
 	}
 	
+	public void limparFila() throws Exception {
+		fila.clear();
+	}
 }
