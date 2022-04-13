@@ -47,15 +47,7 @@ public class FilaService {
 		
 		String ra = fila.get(0);
 		fila.remove(ra);
-		
-		WebSocketChannelDto response = WebSocketChannelDto.builder()
-				.tipo("iniciar")
-				.topico(ra)
-				.payload(dto.getIdSala())
-				.build();
-		
-		socketService.notifyMessageChannel(response);
-		
+				
 	}
 	
 	public void limparFila() throws Exception {
