@@ -3,6 +3,7 @@ package com.pi.teleatendimento.controller;
 import static java.util.Arrays.asList;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.lang.reflect.Type;
@@ -41,7 +42,7 @@ public class WebSocketControllerTest {
 	private Integer port;
 	
 	final String WEBSOCKET_URI = "ws://localhost:" + String.valueOf(port) + "/api/pi-websocket";
-    static final String WEBSOCKET_TOPIC = "2046458";
+    static final String WEBSOCKET_TOPIC = "/2046458";
 	
 	BlockingQueue<String> blockingQueue;
     WebSocketStompClient stompClient;
@@ -52,12 +53,23 @@ public class WebSocketControllerTest {
         stompClient = new WebSocketStompClient(new SockJsClient(
         		asList(new WebSocketTransport(new StandardWebSocketClient()))));
     }
+    
+    @Test
+    public void ConectarNoSocket() throws Exception {
+    	
+        StompSession session = stompClient
+                .connect("ws://localhost:" + String.valueOf(port) + "/api/pi-websocket", new StompSessionHandlerAdapter() {}).get(2, SECONDS);
+        session.subscribe(WEBSOCKET_TOPIC, new DefaultStompFrameHandler());
+        
+        assertTrue(session.isConnected());
+    }
+    
 	
     @Test
-    public void shouldReceiveAMessageFromTheServer() throws Exception {
+    public void EnviarEReceberMensagem() throws Exception {
     	
     	WebSocketChannelDto dto = WebSocketChannelDto.builder()
-    			.topico(WEBSOCKET_TOPIC)
+    			.topico("2046458")
     			.tipo("iniciar")
     			.payload("sala_id")
     			.build();
@@ -68,8 +80,6 @@ public class WebSocketControllerTest {
         StompSession session = stompClient
                 .connect("ws://localhost:" + String.valueOf(port) + "/api/pi-websocket", new StompSessionHandlerAdapter() {}).get(2, SECONDS);
         session.subscribe(WEBSOCKET_TOPIC, new DefaultStompFrameHandler());
-
-//        String message = "MESSAGE TEST";
         
         this.mockMvc.perform(
 				MockMvcRequestBuilders.post("/websocket/message")
@@ -78,9 +88,7 @@ public class WebSocketControllerTest {
 				.characterEncoding("utf-8"))
 				.andExpect(status().isOk());
         
-//        session.send(WEBSOCKET_TOPIC, message.getBytes());
-
-//        assertEquals(json, blockingQueue.poll(2, SECONDS));
+        assertEquals(json, blockingQueue.poll(2, SECONDS));
     }
     
     class DefaultStompFrameHandler implements StompFrameHandler {
