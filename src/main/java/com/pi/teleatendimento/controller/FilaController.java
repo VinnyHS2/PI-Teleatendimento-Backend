@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.pi.teleatendimento.dto.ChamarProximoDto;
 import com.pi.teleatendimento.dto.InserirFilaDto;
 import com.pi.teleatendimento.dto.PosicaoFilaDto;
+import com.pi.teleatendimento.dto.QuantidadeFilaDto;
 import com.pi.teleatendimento.service.FilaService;
 
 
@@ -41,6 +42,11 @@ public class FilaController {
 	public ResponseEntity<PosicaoFilaDto> limparFila() throws Exception {
 		filaService.limparFila();
 		return ResponseEntity.ok().build();
+	}
+	
+	@GetMapping("/quantidade")
+	public ResponseEntity<QuantidadeFilaDto> quantidadeFila() throws Exception {
+		return ResponseEntity.ok(filaService.quantidadeFila());
 	}
 	
 }
