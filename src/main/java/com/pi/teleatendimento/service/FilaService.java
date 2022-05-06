@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.pi.teleatendimento.dto.ChamarProximoDto;
 import com.pi.teleatendimento.dto.InserirFilaDto;
 import com.pi.teleatendimento.dto.PosicaoFilaDto;
+import com.pi.teleatendimento.dto.QuantidadeFilaDto;
 import com.pi.teleatendimento.dto.WebSocketChannelDto;
 import com.pi.teleatendimento.exceptions.BadRequestException;
 import com.pi.teleatendimento.exceptions.NotFoundException;
@@ -60,5 +61,15 @@ public class FilaService {
 	
 	public void limparFila() throws Exception {
 		fila.clear();
+	}
+
+	public QuantidadeFilaDto quantidadeFila() throws Exception {
+		
+		QuantidadeFilaDto dto = QuantidadeFilaDto.builder()
+				.quantidade(fila.size())
+				.build();
+		
+		return dto;
+		
 	}
 }
