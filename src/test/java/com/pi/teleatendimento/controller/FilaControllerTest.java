@@ -14,7 +14,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pi.teleatendimento.dto.ChamarProximoDto;
-import com.pi.teleatendimento.dto.InserirFilaDto;
+import com.pi.teleatendimento.dto.RaDto;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -45,7 +45,7 @@ public class FilaControllerTest {
 	@Order(2)
 	void chamarComUmRa() throws Exception {
 		
-		InserirFilaDto dto = InserirFilaDto.builder().ra("2046458").build();
+		RaDto dto = RaDto.builder().ra("2046458").build();
 		
 		ObjectMapper objectMapper = new ObjectMapper();
         String json = objectMapper.writeValueAsString(dto);
@@ -94,7 +94,7 @@ public class FilaControllerTest {
 	@Order(4)
 	void inserirFila() throws Exception {
 		
-		InserirFilaDto dto = InserirFilaDto.builder().ra("2046452").build();
+		RaDto dto = RaDto.builder().ra("2046452").build();
 		
 		ObjectMapper objectMapper = new ObjectMapper();
         String json = objectMapper.writeValueAsString(dto);
@@ -115,7 +115,7 @@ public class FilaControllerTest {
 	@Order(5)
 	void inserirRaIgualDuasVezes() throws Exception {
 		
-		InserirFilaDto dto = InserirFilaDto.builder().ra("2046451").build();
+		RaDto dto = RaDto.builder().ra("2046451").build();
 		
 		ObjectMapper objectMapper = new ObjectMapper();
 		String json = objectMapper.writeValueAsString(dto);
@@ -144,8 +144,8 @@ public class FilaControllerTest {
 	@Order(6)
 	void inserirRasDiferentes() throws Exception {
 		
-		InserirFilaDto dto = InserirFilaDto.builder().ra("2046453").build();
-		InserirFilaDto dto2 = InserirFilaDto.builder().ra("2046326").build();
+		RaDto dto = RaDto.builder().ra("2046453").build();
+		RaDto dto2 = RaDto.builder().ra("2046326").build();
 		
 		ObjectMapper objectMapper = new ObjectMapper();
 		String json = objectMapper.writeValueAsString(dto);
@@ -174,7 +174,7 @@ public class FilaControllerTest {
 	@Order(7)
 	void inserirRaInvalido() throws Exception {
 		
-		InserirFilaDto dto = InserirFilaDto.builder().ra("a2046454").build();
+		RaDto dto = RaDto.builder().ra("a2046454").build();
 		
 		ObjectMapper objectMapper = new ObjectMapper();
 		String json = objectMapper.writeValueAsString(dto);
@@ -192,7 +192,7 @@ public class FilaControllerTest {
 	@Order(8)
 	void inserirVazio() throws Exception {
 		
-		InserirFilaDto dto = InserirFilaDto.builder().ra("").build();
+		RaDto dto = RaDto.builder().ra("").build();
 		
 		ObjectMapper objectMapper = new ObjectMapper();
 		String json = objectMapper.writeValueAsString(dto);

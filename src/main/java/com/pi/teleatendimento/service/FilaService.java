@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pi.teleatendimento.dto.ChamarProximoDto;
-import com.pi.teleatendimento.dto.InserirFilaDto;
+import com.pi.teleatendimento.dto.RaDto;
 import com.pi.teleatendimento.dto.PosicaoFilaDto;
 import com.pi.teleatendimento.dto.QuantidadeFilaDto;
 import com.pi.teleatendimento.dto.WebSocketChannelDto;
@@ -23,7 +23,7 @@ public class FilaService {
 		
 	private ArrayList<String> fila = new ArrayList<String>();
 	
-	public PosicaoFilaDto inserirFila(@NonNull InserirFilaDto dto) throws Exception {
+	public PosicaoFilaDto inserirFila(@NonNull RaDto dto) throws Exception {
 		
 		if (!NumberUtils.isCreatable(dto.getRa())) 
 			throw new BadRequestException("RA não deve ser um número");
@@ -71,5 +71,9 @@ public class FilaService {
 		
 		return dto;
 		
+	}
+
+	public void sairFila(RaDto dto) throws Exception {
+		fila.remove(dto.getRa());
 	}
 }
