@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pi.teleatendimento.dto.ChamarProximoDto;
-import com.pi.teleatendimento.dto.InserirFilaDto;
 import com.pi.teleatendimento.dto.PosicaoFilaDto;
 import com.pi.teleatendimento.dto.QuantidadeFilaDto;
+import com.pi.teleatendimento.dto.RaDto;
 import com.pi.teleatendimento.service.FilaService;
 
 
@@ -34,7 +34,7 @@ public class FilaController {
 	}
 	
 	@PostMapping("/inserir")
-	public ResponseEntity<PosicaoFilaDto> inserirFila(@Valid @RequestBody InserirFilaDto dto) throws Exception {
+	public ResponseEntity<PosicaoFilaDto> inserirFila(@Valid @RequestBody RaDto dto) throws Exception {
 		return ResponseEntity.ok(filaService.inserirFila(dto));
 	}
 	
@@ -47,6 +47,12 @@ public class FilaController {
 	@GetMapping("/quantidade")
 	public ResponseEntity<QuantidadeFilaDto> quantidadeFila() throws Exception {
 		return ResponseEntity.ok(filaService.quantidadeFila());
+	}
+
+	@PostMapping("/sair")
+	public ResponseEntity<QuantidadeFilaDto> sairFila(@Valid @RequestBody RaDto dto) throws Exception {
+		filaService.sairFila(dto);
+		return ResponseEntity.ok().build();
 	}
 	
 }

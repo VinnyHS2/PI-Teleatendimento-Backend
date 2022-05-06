@@ -17,7 +17,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
-public class InserirFilaDto {
+public class RaDto {
 	
 	@NotEmpty(message = "O campo RA não deve estar vazio")
 	@JsonProperty("ra")
