@@ -40,7 +40,7 @@ public class FilaService {
 		return response;
 	}
 	
-	public void ChamarProximo(@NonNull ChamarProximoDto dto) throws Exception {
+	public RaDto ChamarProximo(@NonNull ChamarProximoDto dto) throws Exception {
 		
 		if(fila.isEmpty()) {
 			throw new NotFoundException("A fila está vazia");
@@ -56,6 +56,12 @@ public class FilaService {
 				.build();
 		
 		socketService.notifyMessageChannel(response);
+		
+		RaDto responseDto = RaDto.builder()
+				.ra(ra)
+				.build();
+		
+		return responseDto;
 		
 	}
 	
