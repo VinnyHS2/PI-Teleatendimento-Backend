@@ -28,9 +28,9 @@ public class FilaController {
 	FilaService filaService;
 	
 	@PostMapping("/chamar-proximo")
-	public ResponseEntity<?> chamarProximo(@Valid @RequestBody ChamarProximoDto dto) throws Exception {
-		filaService.ChamarProximo(dto);
-		return ResponseEntity.ok().build();
+	public ResponseEntity<RaDto> chamarProximo(@Valid @RequestBody ChamarProximoDto dto) throws Exception {
+		
+		return ResponseEntity.ok(filaService.ChamarProximo(dto));
 	}
 	
 	@PostMapping("/inserir")

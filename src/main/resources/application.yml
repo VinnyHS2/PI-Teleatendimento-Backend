@@ -13,10 +13,10 @@ spring:
     driver-class-name: ${DATABASE_VENDOR_DRIVER:org.postgresql.Driver}
     initialization-mode: embedded
     
-jpa:
+  jpa:
     hibernate:
-      ddl-auto: none
-    generate-ddl: false
+      ddl-auto: update
+    generate-ddl: true
     show-sql: false
     properties:
       hibernate:
