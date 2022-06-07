@@ -84,11 +84,12 @@ public class FilaService {
 	}
 	
 	public PosicaoFilaDto retornarFinalFila(RaDto dto) throws Exception {
-		fila.remove(dto.getRa());
 		
 		if (!NumberUtils.isCreatable(dto.getRa())) 
 			throw new BadRequestException("RA não deve ser um número");
 		
+		fila.remove(dto.getRa());
+
 		Integer index = fila.indexOf(dto.getRa()); 
 
 		if (index == -1) {
