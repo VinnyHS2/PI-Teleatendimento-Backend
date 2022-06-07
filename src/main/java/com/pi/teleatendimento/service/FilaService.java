@@ -36,6 +36,14 @@ public class FilaService {
 		}
 		
 		PosicaoFilaDto response = PosicaoFilaDto.builder().posicao(index + 1).build();
+		
+		WebSocketChannelDto mensagem = WebSocketChannelDto.builder()
+				.tipo("quantidade")
+				.topico("fila")
+				.payload(fila.size())
+				.build();
+		
+		socketService.notifyMessageChannel(mensagem);
 
 		return response;
 	}
@@ -57,6 +65,22 @@ public class FilaService {
 		
 		socketService.notifyMessageChannel(response);
 		
+		WebSocketChannelDto mensagem = WebSocketChannelDto.builder()
+				.tipo("chamar")
+				.topico("fila")
+				.payload(fila.size())
+				.build();
+		
+		socketService.notifyMessageChannel(mensagem);
+		
+		WebSocketChannelDto mensagem2 = WebSocketChannelDto.builder()
+				.tipo("quantidade")
+				.topico("fila")
+				.payload(fila.size())
+				.build();
+		
+		socketService.notifyMessageChannel(mensagem2);
+		
 		RaDto responseDto = RaDto.builder()
 				.ra(ra)
 				.build();
@@ -67,6 +91,14 @@ public class FilaService {
 	
 	public void limparFila() throws Exception {
 		fila.clear();
+		
+		WebSocketChannelDto mensagem = WebSocketChannelDto.builder()
+				.tipo("quantidade")
+				.topico("fila")
+				.payload(fila.size())
+				.build();
+		
+		socketService.notifyMessageChannel(mensagem);
 	}
 
 	public QuantidadeFilaDto quantidadeFila() throws Exception {
@@ -78,9 +110,30 @@ public class FilaService {
 		return dto;
 		
 	}
+	
+	public Integer posicaoFila(String ra) {
+		return fila.indexOf(ra);
+	}
 
 	public void sairFila(RaDto dto) throws Exception {
+		Integer pos = posicaoFila(dto.getRa());
 		fila.remove(dto.getRa());
+		WebSocketChannelDto mensagem = WebSocketChannelDto.builder()
+				.tipo("sair")
+				.topico("fila")
+				.payload(pos + 1)
+				.build();
+		
+		socketService.notifyMessageChannel(mensagem);
+		
+		WebSocketChannelDto mensagem2 = WebSocketChannelDto.builder()
+				.tipo("quantidade")
+				.topico("fila")
+				.payload(fila.size())
+				.build();
+		
+		socketService.notifyMessageChannel(mensagem2);
+		
 	}
 	
 	public PosicaoFilaDto retornarFinalFila(RaDto dto) throws Exception {
