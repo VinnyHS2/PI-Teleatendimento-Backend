@@ -82,4 +82,23 @@ public class FilaService {
 	public void sairFila(RaDto dto) throws Exception {
 		fila.remove(dto.getRa());
 	}
+	
+	public PosicaoFilaDto retornarFinalFila(RaDto dto) throws Exception {
+		
+		if (!NumberUtils.isCreatable(dto.getRa())) 
+			throw new BadRequestException("RA não deve ser um número");
+		
+		fila.remove(dto.getRa());
+
+		Integer index = fila.indexOf(dto.getRa()); 
+
+		if (index == -1) {
+			fila.add(dto.getRa());
+			index = fila.indexOf(dto.getRa()); 
+		}
+		
+		PosicaoFilaDto response = PosicaoFilaDto.builder().posicao(index + 1).build();
+
+		return response;
+	}
 }

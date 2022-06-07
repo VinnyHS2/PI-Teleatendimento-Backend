@@ -55,4 +55,10 @@ public class FilaController {
 		return ResponseEntity.ok().build();
 	}
 	
+	@PostMapping("/retornar-final-fila")
+	public ResponseEntity<PosicaoFilaDto> retornarFinalFila(@Valid @RequestBody RaDto dto) throws Exception {
+		filaService.retornarFinalFila(dto);
+		return ResponseEntity.ok().build();
+	}
+	
 }
