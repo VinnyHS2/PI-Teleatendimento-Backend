@@ -105,6 +105,7 @@ public class FilaService {
 		
 		QuantidadeFilaDto dto = QuantidadeFilaDto.builder()
 				.quantidade(fila.size())
+				.ra(fila)
 				.build();
 		
 		return dto;

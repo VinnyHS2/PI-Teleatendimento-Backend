@@ -1,5 +1,7 @@
 package com.pi.teleatendimento.dto;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
@@ -19,5 +21,9 @@ public class QuantidadeFilaDto {
 	
 	@JsonProperty("quantidade")
 	private Integer quantidade;
+	
+	@JsonProperty("ra")
+	private List<String> ra;
+	
 
 }
