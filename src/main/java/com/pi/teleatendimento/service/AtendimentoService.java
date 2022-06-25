@@ -74,6 +74,7 @@ public class AtendimentoService {
 					.professor(atend.getProfessor())
 					.createDate(atend.getCreatedDate())
 					.avaliacao(atend.getAvaliacao())
+					.comentarioAvaliacao(atend.getComentarioAvaliacao())
 					.build();
 			
 			atendimentoDto.add(atendDto);

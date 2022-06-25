@@ -42,6 +42,9 @@ public class Atendimento {
 	@NotEmpty
 	@Column(name = "professor", length = 255)
 	private String professor;
+
+	@Column(name = "comentario_avaliacao", length = 512)
+	private String comentarioAvaliacao;
 	
 	@Column(name = "avaliacao")
 	private Integer avaliacao;

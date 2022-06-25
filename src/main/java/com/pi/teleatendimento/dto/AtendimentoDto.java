@@ -32,5 +32,8 @@ public class AtendimentoDto {
 
 	@JsonProperty("avaliacao")
 	private Integer avaliacao;
+	
+	@JsonProperty("comentario_avaliacao")
+	private String comentarioAvaliacao;
 
 }
