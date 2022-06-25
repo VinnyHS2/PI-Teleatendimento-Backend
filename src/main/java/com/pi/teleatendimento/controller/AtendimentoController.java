@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pi.teleatendimento.dto.ChamarProximoDto;
+import com.pi.teleatendimento.dto.HistoricoAtendimentoDto;
 import com.pi.teleatendimento.dto.PosicaoFilaDto;
 import com.pi.teleatendimento.dto.QuantidadeFilaDto;
 import com.pi.teleatendimento.dto.RaDto;
+import com.pi.teleatendimento.dto.RegistrarAtendimentoDto;
 import com.pi.teleatendimento.service.AtendimentoService;
 import com.pi.teleatendimento.service.FilaService;
 
@@ -38,6 +40,18 @@ public class AtendimentoController {
 	public ResponseEntity<QuantidadeFilaDto> sairProf(@Valid @RequestBody RaDto dto) throws Exception {
 		atendimentoService.finalizarProfessor(dto);
 		return ResponseEntity.ok().build();
+	}
+
+	@PostMapping("/registrar")
+	public ResponseEntity<RegistrarAtendimentoDto> registrarAtendimento(@Valid @RequestBody RegistrarAtendimentoDto dto) throws Exception {
+		atendimentoService.registrar(dto);
+		return ResponseEntity.ok().build();
+	}
+
+	@PostMapping("/")
+	public ResponseEntity<HistoricoAtendimentoDto> buscaRa(@Valid @RequestBody RaDto dto) throws Exception {
+		
+		return ResponseEntity.ok(atendimentoService.buscaRa(dto));
 	}
 	
 }

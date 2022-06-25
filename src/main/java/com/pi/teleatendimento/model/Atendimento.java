@@ -15,9 +15,17 @@ import org.springframework.data.annotation.CreatedDate;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+@Data
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "atendimento")
 public class Atendimento {
 
@@ -34,6 +42,12 @@ public class Atendimento {
 	@NotEmpty
 	@Column(name = "professor", length = 255)
 	private String professor;
+
+	@Column(name = "comentario_avaliacao", length = 512)
+	private String comentarioAvaliacao;
+	
+	@Column(name = "avaliacao")
+	private Integer avaliacao;
 
     @JsonIgnore
     @CreatedDate
