@@ -10,9 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import com.pi.teleatendimento.model.Atendimento;
 
-/**
- * @author MZN Solucoes
- */
 @Repository
 public interface AtendimentoRepository extends JpaRepository<Atendimento, UUID> {
 	
