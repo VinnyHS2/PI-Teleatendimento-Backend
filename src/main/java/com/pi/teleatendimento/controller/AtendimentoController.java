@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.pi.teleatendimento.dto.AvaliaDto;
 import com.pi.teleatendimento.dto.ChamarProximoDto;
 import com.pi.teleatendimento.dto.HistoricoAtendimentoDto;
 import com.pi.teleatendimento.dto.PosicaoFilaDto;
@@ -37,13 +38,13 @@ public class AtendimentoController {
 	}
 
 	@PostMapping("/sair-professor")
-	public ResponseEntity<QuantidadeFilaDto> sairProf(@Valid @RequestBody RaDto dto) throws Exception {
+	public ResponseEntity<?> sairProf(@Valid @RequestBody RaDto dto) throws Exception {
 		atendimentoService.finalizarProfessor(dto);
 		return ResponseEntity.ok().build();
 	}
 
 	@PostMapping("/registrar")
-	public ResponseEntity<RegistrarAtendimentoDto> registrarAtendimento(@Valid @RequestBody RegistrarAtendimentoDto dto) throws Exception {
+	public ResponseEntity<?> registrarAtendimento(@Valid @RequestBody RegistrarAtendimentoDto dto) throws Exception {
 		atendimentoService.registrar(dto);
 		return ResponseEntity.ok().build();
 	}
@@ -52,6 +53,14 @@ public class AtendimentoController {
 	public ResponseEntity<HistoricoAtendimentoDto> buscaRa(@Valid @RequestBody RaDto dto) throws Exception {
 		
 		return ResponseEntity.ok(atendimentoService.buscaRa(dto));
+	}
+
+	@PostMapping("/avaliar")
+	public ResponseEntity<?> avaliar(@Valid @RequestBody AvaliaDto dto) throws Exception {
+		
+		atendimentoService.avaliar(dto);
+		
+		return ResponseEntity.ok().build();
 	}
 	
 }

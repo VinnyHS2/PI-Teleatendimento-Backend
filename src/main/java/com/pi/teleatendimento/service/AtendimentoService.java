@@ -9,10 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pi.teleatendimento.dto.AtendimentoDto;
+import com.pi.teleatendimento.dto.AvaliaDto;
 import com.pi.teleatendimento.dto.HistoricoAtendimentoDto;
 import com.pi.teleatendimento.dto.RaDto;
 import com.pi.teleatendimento.dto.RegistrarAtendimentoDto;
 import com.pi.teleatendimento.dto.WebSocketChannelDto;
+import com.pi.teleatendimento.exceptions.NotFoundException;
 import com.pi.teleatendimento.model.Atendimento;
 import com.pi.teleatendimento.repository.AtendimentoRepository;
 
@@ -58,6 +60,19 @@ public class AtendimentoService {
 				.build();
 		
 		atendimentoRepository.save(atend);
+		
+	}
+
+	public void avaliar(@NonNull AvaliaDto dto) throws Exception {
+		
+		
+		Atendimento atendimento = atendimentoRepository.findLastByRa(dto.getRa())
+				.orElseThrow(() -> new NotFoundException("ra não existe"));
+		
+		atendimento.setAvaliacao(dto.getAvaliacao());
+		atendimento.setComentarioAvaliacao(dto.getComentario());
+		
+		atendimentoRepository.save(atendimento);
 		
 	}
 
