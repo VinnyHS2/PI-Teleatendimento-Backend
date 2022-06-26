@@ -28,7 +28,6 @@ public class AvaliaDto {
 	@JsonProperty("avaliacao")
 	private Integer avaliacao;
 	
-	@NotEmpty
 	@JsonProperty("comentario")
 	private String comentario;
 
