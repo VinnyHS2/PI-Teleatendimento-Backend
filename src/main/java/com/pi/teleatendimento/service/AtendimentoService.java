@@ -14,6 +14,7 @@ import com.pi.teleatendimento.dto.HistoricoAtendimentoDto;
 import com.pi.teleatendimento.dto.RaDto;
 import com.pi.teleatendimento.dto.RegistrarAtendimentoDto;
 import com.pi.teleatendimento.dto.WebSocketChannelDto;
+import com.pi.teleatendimento.exceptions.NotFoundException;
 import com.pi.teleatendimento.model.Atendimento;
 import com.pi.teleatendimento.repository.AtendimentoRepository;
 
@@ -66,7 +67,7 @@ public class AtendimentoService {
 		
 		
 		Atendimento atendimento = atendimentoRepository.findLastByRa(dto.getRa())
-				.orElseThrow(() -> new Exception());
+				.orElseThrow(() -> new NotFoundException("ra não existe"));
 		
 		atendimento.setAvaliacao(dto.getAvaliacao());
 		atendimento.setComentarioAvaliacao(dto.getComentario());
