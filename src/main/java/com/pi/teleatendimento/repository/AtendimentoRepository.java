@@ -21,4 +21,12 @@ public interface AtendimentoRepository extends JpaRepository<Atendimento, UUID> 
 					+ " WHERE at.ra = :ra ")
 	List<Atendimento> findByRa(String ra);
 
+	@Query(nativeQuery = true, 
+			value = "   SELECT * "
+					+ " FROM atendimento at "
+					+ " WHERE at.ra = :ra "
+					+ " ORDER BY at.created_date DESC "
+					+ " LIMIT 1 ")
+	Optional<Atendimento> findLastByRa(String ra);
+
 }

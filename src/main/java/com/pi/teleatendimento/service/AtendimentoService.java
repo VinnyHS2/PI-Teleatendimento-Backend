@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pi.teleatendimento.dto.AtendimentoDto;
+import com.pi.teleatendimento.dto.AvaliaDto;
 import com.pi.teleatendimento.dto.HistoricoAtendimentoDto;
 import com.pi.teleatendimento.dto.RaDto;
 import com.pi.teleatendimento.dto.RegistrarAtendimentoDto;
@@ -58,6 +59,19 @@ public class AtendimentoService {
 				.build();
 		
 		atendimentoRepository.save(atend);
+		
+	}
+
+	public void avaliar(@NonNull AvaliaDto dto) throws Exception {
+		
+		
+		Atendimento atendimento = atendimentoRepository.findLastByRa(dto.getRa())
+				.orElseThrow(() -> new Exception());
+		
+		atendimento.setAvaliacao(dto.getAvaliacao());
+		atendimento.setComentarioAvaliacao(dto.getComentario());
+		
+		atendimentoRepository.save(atendimento);
 		
 	}
 
