@@ -138,10 +138,11 @@ public class FilaService {
 	}
 	
 	public PosicaoFilaDto retornarFinalFila(RaDto dto) throws Exception {
-		
+
 		if (!NumberUtils.isCreatable(dto.getRa())) 
 			throw new BadRequestException("RA não deve ser um número");
 		
+		Integer pos = posicaoFila(dto.getRa());
 		fila.remove(dto.getRa());
 
 		Integer index = fila.indexOf(dto.getRa()); 
@@ -150,6 +151,31 @@ public class FilaService {
 			fila.add(dto.getRa());
 			index = fila.indexOf(dto.getRa()); 
 		}
+		
+		
+		WebSocketChannelDto mensagem2 = WebSocketChannelDto.builder()
+				.tipo("quantidade")
+				.topico("fila")
+				.payload(fila.size())
+				.build();
+		
+		socketService.notifyMessageChannel(mensagem2);
+		
+		WebSocketChannelDto mensagem3 = WebSocketChannelDto.builder()
+				.tipo("sair")
+				.topico("fila")
+				.payload(pos + 1)
+				.build();
+		
+		socketService.notifyMessageChannel(mensagem3);
+
+		WebSocketChannelDto mensagem = WebSocketChannelDto.builder()
+				.tipo("voltar-final")
+				.topico(dto.getRa())
+				.payload(index + 1)
+				.build();
+		
+		socketService.notifyMessageChannel(mensagem);
 		
 		PosicaoFilaDto response = PosicaoFilaDto.builder().posicao(index + 1).build();
 
